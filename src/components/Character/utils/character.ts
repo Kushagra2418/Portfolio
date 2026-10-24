@@ -34,6 +34,46 @@ const setCharacter = (
                 child.castShadow = true;
                 child.receiveShadow = true;
                 mesh.frustumCulled = true;
+
+                const name = child.name || "";
+                if (name === "BODY.SHIRT" || name.includes("SHIRT")) {
+                  mesh.material = (mesh.material as THREE.Material).clone();
+                  (mesh.material as any).color = new THREE.Color("#242b3d");
+                  (mesh.material as any).roughness = 0.65;
+                  (mesh.material as any).metalness = 0.1;
+                } else if (name === "Pant" || name.includes("Pant")) {
+                  mesh.material = (mesh.material as THREE.Material).clone();
+                  (mesh.material as any).color = new THREE.Color("#141724");
+                  (mesh.material as any).roughness = 0.8;
+                  (mesh.material as any).metalness = 0.05;
+                } else if (name === "Shoe" || name.includes("Shoe")) {
+                  mesh.material = (mesh.material as THREE.Material).clone();
+                  (mesh.material as any).color = new THREE.Color("#1e2230");
+                  (mesh.material as any).roughness = 0.5;
+                  (mesh.material as any).metalness = 0.15;
+                } else if (name === "Sole" || name.includes("Sole")) {
+                  mesh.material = (mesh.material as THREE.Material).clone();
+                  (mesh.material as any).color = new THREE.Color("#cbd5e1");
+                  (mesh.material as any).roughness = 0.4;
+                } else if (name === "Plane" && !name.includes(".")) {
+                  mesh.material = (mesh.material as THREE.Material).clone();
+                  (mesh.material as any).color = new THREE.Color("#181a24");
+                  (mesh.material as any).roughness = 0.35;
+                  (mesh.material as any).metalness = 0.2;
+                } else if (name === "Cube.002" || name.includes("Cube.002")) {
+                  mesh.material = (mesh.material as THREE.Material).clone();
+                  (mesh.material as any).color = new THREE.Color("#282b36");
+                  (mesh.material as any).roughness = 0.4;
+                  (mesh.material as any).metalness = 0.5;
+                } else if (name === "Plane.003" || name.includes("chair")) {
+                  mesh.material = (mesh.material as THREE.Material).clone();
+                  (mesh.material as any).color = new THREE.Color("#15161f");
+                  (mesh.material as any).roughness = 0.7;
+                } else if (name === "Keyboard") {
+                  mesh.material = (mesh.material as THREE.Material).clone();
+                  (mesh.material as any).color = new THREE.Color("#161720");
+                  (mesh.material as any).roughness = 0.5;
+                }
               }
             });
             resolve(gltf);

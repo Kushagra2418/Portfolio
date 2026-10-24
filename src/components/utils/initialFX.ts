@@ -5,9 +5,9 @@ import { smoother } from "../Navbar";
 export function initialFX() {
   document.body.style.overflowY = "auto";
   smoother.paused(false);
-  document.getElementsByTagName("main")[0].classList.add("main-active");
+  document.getElementsByTagName("main")[0]?.classList.add("main-active");
   gsap.to("body", {
-    backgroundColor: "#0b080c",
+    backgroundColor: "#06040a",
     duration: 0.5,
     delay: 1,
   });

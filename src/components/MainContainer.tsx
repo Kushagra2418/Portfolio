@@ -1,16 +1,17 @@
-import { lazy, PropsWithChildren, Suspense, useEffect, useState } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import About from "./About";
 import Career from "./Career";
 import Contact from "./Contact";
 import Cursor from "./Cursor";
+import GalaxyBackground from "./GalaxyBackground";
 import Landing from "./Landing";
 import Navbar from "./Navbar";
 import SocialIcons from "./SocialIcons";
 import WhatIDo from "./WhatIDo";
 import Work from "./Work";
+import TechStack from "./TechStack";
 import setSplitText from "./utils/splitText";
-
-const TechStack = lazy(() => import("./TechStack"));
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const MainContainer = ({ children }: PropsWithChildren) => {
   const [isDesktopView, setIsDesktopView] = useState<boolean>(
@@ -21,16 +22,25 @@ const MainContainer = ({ children }: PropsWithChildren) => {
     const resizeHandler = () => {
       setSplitText();
       setIsDesktopView(window.innerWidth > 1024);
+      ScrollTrigger.refresh();
     };
     resizeHandler();
+
+    // Trigger initial refresh after layout stabilizes
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 200);
+
     window.addEventListener("resize", resizeHandler);
     return () => {
+      clearTimeout(timer);
       window.removeEventListener("resize", resizeHandler);
     };
   }, [isDesktopView]);
 
   return (
     <div className="container-main">
+      <GalaxyBackground />
       <Cursor />
       <Navbar />
       <SocialIcons />
@@ -43,11 +53,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
             <WhatIDo />
             <Career />
             <Work />
-            {isDesktopView && (
-              <Suspense fallback={<div>Loading....</div>}>
-                <TechStack />
-              </Suspense>
-            )}
+            {isDesktopView && <TechStack />}
             <Contact />
           </div>
         </div>
